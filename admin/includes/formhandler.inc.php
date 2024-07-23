@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $pdo = null;
         $stmt = null;
-        header("Location: ../../pages/contact.html");
+        header("Location: ../../pages/contact.html?submit=success");
         die();
     } catch (PDOException $e) {
         die('Query failed: ' . $e->getMessage());
