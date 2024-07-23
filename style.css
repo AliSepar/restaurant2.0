@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+:root{
+    --font-secondary:"Pacifico", cursive;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito Sans", sans-serif;
+}
+body{
+    /* height: 100vh; */
+    background-color:#F1F8FF;
+    width: 100%;
+    min-height: 100vh; /* it will give the 100% height but will increase if needed */ 
+    
+}
+.navbar-nav{
+    /* float it to right */
+    margin-left: auto;
+    color: white;
+}
+.navbar-toggler .text-oringe{
+    color: white ;
+    background-color: #FEA116;
+}
+.navbar-nav a{
+    color: white;
+    text-transform: uppercase;
+    border-bottom:2px solid transparent ;
+}
+.navbar-nav .nav-link{
+    font-size: 16px;
+    font-weight: 600;
+}
+.navbar-nav a:hover{
+    border-bottom: 2px solid #FEA116;
+    transition: ease 0.2s;
+}
+.navbar-nav a.active{
+    border-bottom: 2px solid #FEA116;
+}
+
+.main-bg{
+    background-image:linear-gradient(rgb(15, 23, 43,0.9),rgb(15, 23, 43,0.9)),url(./images/bg-hero.webp);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    /* position: relative; */
+    color: white;
+    min-height: 100vh;
+
+}
+.navbar-brand  .text-primary{
+    font-weight: 700;
+    color: #FEA116 !important;
+}
+.navbar-nav a{
+    font-size: 18px;
+}
+.navbar-nav .nav-link.active{
+    color: #FEA116;
+}
+.nav-link:hover{
+    color: #FEA116;
+}
+
+.panel .panel-heading{
+    color: white;
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 60px;
+    margin-bottom: 10px;
+}
+
+.panel-body .custom-btn{
+    background-color: #FEA116;
+    color: white;
+    /* margin-inline: auto; */
+}
+
+.hero-image{
+    max-width: 490px;
+    overflow: hidden;
+}
+.hero-image > img{
+    width: 100%;
+    animation: rotation 50s infinite linear;
+    border-radius: 50%;
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(359deg);
+      }
+}
+
+/* ///////////////////////////////////////////////////////// */
+/* menu page */
+
+.section-tile h3{
+    font-size: 18px;
+    color: #FEA116;
+    font-family: var(--font-secondary);
+}
+.section-tile h1{
+font-weight: 700;
+}
+
+.nav-item .menu-tabs{
+    color: #FEA116;
+    font-weight: 500;
+    font-size: 18px;
+}
+.nav-item .menu-tabs i{
+    padding-right: 5px;
+}
+.nav-item .menu-tabs:hover{
+    border-radius: 0px;
+    border-bottom: 2px solid #FEA116;
+}
+.nav-item .menu-tabs.active{
+    color: #FEA116;
+    background-color: transparent;
+    border: none;
+    border-radius: 0px;
+    border-bottom: 2px solid #FEA116;
+}
+
+/* /////////////////////////// */
+/* picture */
+.carousel-control-prev-icon, .carousel-control-next-icon{
+    color: #FEA116;
+}
+.fixed-height{
+    max-height: 400px;
+    /* height: auto; */
+}
+.fiex-row a > img{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+
+
+/* ////////////////////////////////////////////////////// */
+
+.section-tile .about-title{
+    font-size: 30px;
+
+}
+.card-title i{
+    color: #FEA116;
+}
+.custom-font{
+    font-family: var(--font-secondary);
+}
+
+
+
+/*////////////////////////////////////////////////////// */
+/* contact */
+form div > .custom-btn{
+    color: white;
+    background-color: #FEA116;
+}
+
+
+/* ///////////////////////////////////////////////////////// */
+/* loading screen style */
+.loader {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #333333;
+    transition: opacity 0.75s, visibility 0.75s;
+  }
+  
+  .loader--hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .loader::after {
+    content: "";
+    width: 100px;
+    height: 100px;
+    border: 20px solid #dddddd;
+    border-top-color:#FEA116;
+    border-radius: 50%;
+    animation: loading 0.75s ease infinite;
+  }
+  
+  @keyframes loading {
+    from {
+      transform: rotate(0turn);
+    }
+    to {
+      transform: rotate(1turn);
+    }
+  }
+  
