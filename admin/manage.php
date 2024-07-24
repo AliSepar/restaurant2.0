@@ -6,6 +6,13 @@ try {
   $getmessages = $pdo->prepare($query);
   $getmessages->execute();
   $messages = $getmessages->fetchAll();
+
+  $res_query ="SELECT * FROM reservation";
+  $getReservation = $pdo->prepare($res_query);
+  $getReservation -> execute();
+  $reservations = $getReservation -> fetchAll();
+
+
 } catch (PDOException $e) {
   die("Query Failed : " . $e->getMessage());
 }
@@ -101,30 +108,16 @@ try {
                                   <td><h2 class='badge " . $style . " '>" . $subject . "</h2></td>
                                   <td>" . $message['message'] . "</td>
                                   <td>
-                                    <a href='./admin/includes/deletedata.inc.php?id" . $message['id'] . "' class='btn btn-danger'><i class='fa-solid fa-trash'></i></a>
+                                    <a onclick='checkDelete()' href='./includes/deletedata.inc.php?message_id=" . $message['id'] . "' class='btn btn-danger'><i class='fa-solid fa-trash'></i></a>
                                   </td>
                               </tr>
+                              
                         ";
                       }
+                    
                     }
 
                     ?>
-                    <!-- <tr>
-                      <td>23/7/2024</td>
-                      <td>Emily</td>
-                      <td>Email@gmail.com</td>
-                      <td>Genral</td>
-                      <td>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Quas, molestias corrupti adipisci, facilis
-                        molestiae ducimus ullam perspiciatis cumque, fugiat
-                        distinctio necessitatibus nisi commodi ratione
-                        voluptas incidunt? Veritatis repellendus commodi sit.
-                      </td>
-                      <td>
-                        <a href="" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                      </td>
-                    </tr> -->
 
                   </tbody>
                 </table>
@@ -132,104 +125,67 @@ try {
             </div>
           </div>
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-            <div class="row">
+            <div class="row justify-content-center">
               <div class="col-lg-10 mb-3">
                 <table class="table">
                   <thead>
                     <tr>
                       <th>Date</th>
+                      <th>Time</th>
                       <th>Name</th>
                       <th>Email</th>
-                      <th>Subject</th>
+                      <th>People</th>
                       <th>Message</th>
+                      <th>Status</th>
                       <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>23/7/2024</td>
-                      <td>Emily</td>
-                      <td>Email@gmail.com</td>
-                      <td>Genral</td>
-                      <td>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Quas, molestias corrupti adipisci, facilis
-                        molestiae ducimus ullam perspiciatis cumque, fugiat
-                        distinctio necessitatibus nisi commodi ratione
-                        voluptas incidunt? Veritatis repellendus commodi sit.
-                      </td>
-                      <td>
-                        <a href="" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>23/7/2024</td>
-                      <td>Emily</td>
-                      <td>Email@gmail.com</td>
-                      <td>Genral</td>
-                      <td>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Quas, molestias corrupti adipisci, facilis
-                        molestiae ducimus ullam perspiciatis cumque, fugiat
-                        distinctio necessitatibus nisi commodi ratione
-                        voluptas incidunt? Veritatis repellendus commodi sit.
-                      </td>
-                      <td>
-                        <a href="" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                      </td>
-                    </tr>
+                    <?php if($reservations){ 
+                              foreach($reservations as $reservation){
+                                if($reservation['status'] == 0){
+                                  $status = 'Waiting';
+                                  $style = 'btn btn-success';
+                                }else{
+                                  $status='Arrived';
+                                  $style='btn btn-success';  
+                                }
+
+                                echo "<tr>
+                                  <td>" . $reservation['date'] . "</td>
+                                  <td>" . $reservation['time'] ."</td>
+                                  <td>" . $reservation['first_name'] . " " . $reservation['last_name'] . "</td>
+                                  <td>" . $reservation['email'] . "</td>
+                                  <td>" . $reservation['people']."</td>
+                                  <td>" . $reservation['message'] . "</td>
+                                  <td> <a href='includes/deletedata.inc.php?statusChangeId=".$reservation['res_id']."' class='".$style."'>" . $status ."</a></td>
+                                  <td>
+                                    <a href='./admin/includes/deletedata.inc.php?id=" . $reservation['res_id'] . "' class='btn btn-danger'><i class='fa-solid fa-trash'></i></a>
+                                  </td>
+                              </tr>
+                        ";
+                              }
+                           }  
+                    ?>
+               
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
           <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-            <div class="row">
+            <div class="row justify-content-center">
               <div class="col-lg-10 mb-3">
                 <table class="table">
                   <thead>
                     <tr>
-                      <th>Date</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Subject</th>
-                      <th>Message</th>
-                      <th>Delete</th>
+                      <th>No</th>
+                      <th>Image</th>
+                      <th>action</th> 
                     </tr>
                   </thead>
                   <tbody>
-                    <!-- <tr>
-                      <td>23/7/2024</td>
-                      <td>Emily</td>
-                      <td>Email@gmail.com</td>
-                      <td>Genral</td>
-                      <td>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Quas, molestias corrupti adipisci, facilis
-                        molestiae ducimus ullam perspiciatis cumque, fugiat
-                        distinctio necessitatibus nisi commodi ratione
-                        voluptas incidunt? Veritatis repellendus commodi sit.
-                      </td>
-                      <td>
-                        <a href="" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                      </td>
-                    </tr> -->
-                    <!-- <tr>
-                      <td>23/7/2024</td>
-                      <td>Emily</td>
-                      <td>Email@gmail.com</td>
-                      <td>Genral</td>
-                      <td>
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit. Quas, molestias corrupti adipisci, facilis
-                        molestiae ducimus ullam perspiciatis cumque, fugiat
-                        distinctio necessitatibus nisi commodi ratione
-                        voluptas incidunt? Veritatis repellendus commodi sit.
-                      </td>
-                      <td>
-                        <a href="" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
-                      </td>
-                    </tr> -->
+                
                   </tbody>
                 </table>
               </div>
@@ -244,4 +200,10 @@ try {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
+<script language="JavaScript" type="text/javascript">
+  // confirm before delete
+    function checkDelete(){
+        return confirm('Are you sure you want to Delete?');
+    }
+</script>
 </html>

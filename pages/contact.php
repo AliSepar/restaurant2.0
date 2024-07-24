@@ -1,3 +1,15 @@
+<?php
+
+if(isset($_GET['reservation'])){
+  $selected='selected';
+  $date_time='true';
+}else{
+  $date_time='false';
+  $selected='';
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -136,12 +148,64 @@
               >
                 <option value="0">Select your Subject</option>
                 <option value="1">General</option>
-                <option value="2">Reservation</option>
+                <option value="2" <?php echo $selected; ?>>Reservation</option>
                 <option value="3">Technical</option>
                 <option value="4">Complaint</option>
               </select>
             </div>
-            <div class="mb-3 animate__animated animate__fadeInDown">
+
+            <?php if($date_time === 'true'){ ?>
+
+            <div class='row mb-2'> 
+              <div class="col-4 animate__animated animate__fadeInUp">
+                <label for="date-input" class="form-label">Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="date-input"
+                  name="date"
+                  required
+                />
+              </div>
+              <div class="col-4 animate__animated animate__fadeInUp">
+                <label for="time-input" class="form-label">Time</label>
+                <input
+                  type="time"
+                  class="form-control"
+                  id="time-input"
+                  name="time"
+                  placeholder="hrs:mins"
+                  required
+                />
+              </div>
+              <div class="col-4 mb-3 animate__animated animate__fadeInDown">
+              <label for="people" class="form-label">Peoples</label>
+              <select
+                class="form-select"
+                id="people"
+                name="people"
+                aria-label="Default select example"
+                required
+              >
+                <option value="1">1 People</option>
+                <option value="2">2 People</option>
+                <option value="3">3 People</option>
+                <option value="4">4 People</option>
+                <option value="5">5 People</option>
+                <option value="6">6 People</option>
+                <option value="7">7 People</option>
+                <option value="8">8 People</option>
+                <option value="9">9 People</option>
+                <option value="10">10 People</option>
+                <option value="11">11 People</option>
+                <option value="12">12 People</option>
+                <option value="13">13 People</option>
+              </select>
+              </div>
+            </div>
+            <?php } ?>
+
+            <div class="mb-4 animate__animated animate__fadeInDown">
               <label for="message" class="form-label">Message</label>
               <textarea
                 class="form-control"
