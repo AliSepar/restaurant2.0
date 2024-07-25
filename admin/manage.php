@@ -36,7 +36,7 @@ try {
 </head>
 
 <body>
-  <div class="container bg-secondary-subtle vh-100">
+  <div class="container bg-secondary-subtle min-vh-100">
     <nav class="navbar bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="../index.html">
@@ -75,7 +75,7 @@ try {
           <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
             <div class="row justify-content-center">
               <div class="col-lg-10 mb-3">
-                <table class="table table-bordered">
+                <table class="table table-bordered table-responsive">
                   <thead>
                     <tr>
                       <th width="100">Date</th>
@@ -108,7 +108,7 @@ try {
                                   <td><h2 class='badge " . $style . " '>" . $subject . "</h2></td>
                                   <td>" . $message['message'] . "</td>
                                   <td>
-                                    <a onclick='checkDelete()' href='./includes/deletedata.inc.php?message_id=" . $message['id'] . "' class='btn btn-danger'><i class='fa-solid fa-trash'></i></a>
+                                    <a href='./includes/deletedata.inc.php?message_id=" . $message['id'] . "' class='btn btn-danger mess_delete'><i class='fa-solid fa-trash'></i></a>
                                   </td>
                               </tr>
                               
@@ -127,7 +127,7 @@ try {
           <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
             <div class="row justify-content-center">
               <div class="col-lg-10 mb-3">
-                <table class="table">
+                <table class="table table-bordered table-responsive-sm">
                   <thead>
                     <tr>
                       <th>Date</th>
@@ -144,11 +144,11 @@ try {
                     <?php if($reservations){ 
                               foreach($reservations as $reservation){
                                 if($reservation['status'] == 0){
-                                  $status = 'Waiting';
-                                  $style = 'btn btn-success';
+                                  
+                                  $statusTag="<a href='./includes/deletedata.inc.php?statusChangeId=".$reservation['res_id']."' class='btn btn-success'>Waiting</a>";
+
                                 }else{
-                                  $status='Arrived';
-                                  $style='btn btn-success';  
+                                  $statusTag ="<span class='btn btn-secondary disabled'>Arrived</span>";
                                 }
 
                                 echo "<tr>
@@ -158,12 +158,13 @@ try {
                                   <td>" . $reservation['email'] . "</td>
                                   <td>" . $reservation['people']."</td>
                                   <td>" . $reservation['message'] . "</td>
-                                  <td> <a href='includes/deletedata.inc.php?statusChangeId=".$reservation['res_id']."' class='".$style."'>" . $status ."</a></td>
+                                  <td>".$statusTag."</td>
                                   <td>
-                                    <a href='./admin/includes/deletedata.inc.php?id=" . $reservation['res_id'] . "' class='btn btn-danger'><i class='fa-solid fa-trash'></i></a>
+                                    <a href='./includes/deletedata.inc.php?reservation_delete=" . $reservation['res_id'] . "' class='btn btn-danger res_delete'><i class='fa-solid fa-trash'></i></a>
                                   </td>
                               </tr>
                         ";
+                        
                               }
                            }  
                     ?>
@@ -176,7 +177,7 @@ try {
           <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
             <div class="row justify-content-center">
               <div class="col-lg-10 mb-3">
-                <table class="table">
+                <table class="table table-bordered table-responsive">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -199,11 +200,64 @@ try {
   <!-- / -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script language="JavaScript" type="text/javascript">
   // confirm before delete
-    function checkDelete(){
-        return confirm('Are you sure you want to Delete?');
-    }
+  document.addEventListener('DOMContentLoaded', function() {
+
+//message delete confirmation
+const messDeleteButtons = document.querySelectorAll('.mess_delete');
+messDeleteButtons.forEach(function(messdeleteButton){
+  let messUrl=messdeleteButton.getAttribute('href');
+     messdeleteButton.addEventListener('click',(e)=>{
+          e.preventDefault();
+          const userConfirmed = confirm("Are you sure you want to delete this item?");
+          if (userConfirmed) {
+            window.location.href = messUrl;
+          }
+     });
+  });
+
+
+    //reservation delete
+  const resDeleteButtons = document.querySelectorAll('.res_delete');
+  resDeleteButtons.forEach(function(deleteButton){
+  let url=deleteButton.getAttribute('href');
+        deleteButton.addEventListener('click',(e)=>{
+          e.preventDefault();
+          const userConfirmed = confirm("Are you sure you want to delete this item?");
+          if (userConfirmed) {
+            window.location.href = url;
+          }
+     });
+  });
+
+});
+
+
+//sweet alert
+//   document.addEventListener('DOMContentLoaded', function() {
+//   document.querySelector('.res_delete').addEventListener('click',(e)=> {
+//     console.log("clicked");
+//      Swal.fire({
+//     title: 'Are you sure?',
+//     text: 'Some text.',
+//     icon: 'warning',  // 'type' is now 'icon' in SweetAlert2
+//     showCancelButton: true,
+//     confirmButtonColor: '#DD6B55',
+//     confirmButtonText: 'Yes!',
+//     cancelButtonText: 'No.'
+//   }).then((result) => {
+//     if (result.isConfirmed) {  // Use isConfirmed instead of value
+//       // Handle Confirm button click
+//       Swal.fire("Deleted!", "Your imaginary file has been deleted!", "success");
+//     } else if (result.dismiss === Swal.DismissReason.cancel) {
+//       // Handle Cancel button click
+//       Swal.fire("Cancelled", "Your imaginary file is safe :)", "error");
+//     }
+//   });
+// });
+//   });
 </script>
 </html>

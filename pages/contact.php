@@ -79,7 +79,7 @@ if(isset($_GET['reservation'])){
                 <a class="nav-link" href="menu.html">Menu</a>
                 <a class="nav-link" href="pictures.html">Pictures</a>
                 <a class="nav-link" href="about.html">Restaurant</a>
-                <a class="nav-link active" href="contact.html">Contact</a>
+                <a class="nav-link active" href="contact.php">Contact</a>
               </div>
             </div>
           </div>
