@@ -12,12 +12,17 @@ try {
   $getReservation -> execute();
   $reservations = $getReservation -> fetchAll();
 
+  $image_query = "SELECT * FROM images";
+  $getImage = $pdo-> prepare($image_query);
+  $getImage -> execute();
+  $allimages = $getImage -> fetchAll();
+
 
 } catch (PDOException $e) {
   die("Query Failed : " . $e->getMessage());
 }
 
-//getting data for messages
+
 
 
 ?>
@@ -162,13 +167,11 @@ try {
                                   <td>
                                     <a href='./includes/deletedata.inc.php?reservation_delete=" . $reservation['res_id'] . "' class='btn btn-danger res_delete'><i class='fa-solid fa-trash'></i></a>
                                   </td>
-                              </tr>
-                        ";
+                              </tr> ";
                         
                               }
                            }  
                     ?>
-               
                   </tbody>
                 </table>
               </div>
@@ -177,6 +180,17 @@ try {
           <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
             <div class="row justify-content-center">
               <div class="col-lg-10 mb-3">
+              <div class="" id="Example">
+                <div class="card card-body">
+                  <h4 class='card-title'>Image insert</h4>
+                <form class="form-inline row" action="./includes/imagehandler.inc.php" method='POST' enctype="multipart/form-data">
+                    <div class="form-group col-5">
+                      <input type="file" name='image_input' class="form-control" id="image_input">
+                    </div>
+                    <input type="submit" name='submit' class="col-2 btn btn-primary mb-2"  value='Submit'>
+                  </form>
+              </div>
+              </div>
                 <table class="table table-bordered table-responsive">
                   <thead>
                     <tr>
@@ -186,7 +200,21 @@ try {
                     </tr>
                   </thead>
                   <tbody>
-                
+                      <?php 
+                      if($allimages){
+                        $x=1;
+                        foreach($allimages as $image){
+                          echo "
+                          <tr>
+                              <td>" .$x++. "</td>
+                              <td><img src='../" . $image['image_path'] ."' alt='images' width='100'></td>
+                              <td>
+                                <a href='./includes/deletedata.inc.php?image_id=" . $image['image_id'] . "' class='btn btn-danger image_delete'><i class='fa-solid fa-trash'></i></a>
+                              </td>
+                           </tr> ";
+                        }
+                      }
+                      ?>
                   </tbody>
                 </table>
               </div>
@@ -199,13 +227,12 @@ try {
 
   <!-- / -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script> -->
 </body>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
 <script language="JavaScript" type="text/javascript">
   // confirm before delete
-  document.addEventListener('DOMContentLoaded', function() {
-
 //message delete confirmation
 const messDeleteButtons = document.querySelectorAll('.mess_delete');
 messDeleteButtons.forEach(function(messdeleteButton){
@@ -233,7 +260,19 @@ messDeleteButtons.forEach(function(messdeleteButton){
      });
   });
 
-});
+  //image delete confirmation
+      //reservation delete
+      const imagesDeletebtn = document.querySelectorAll('.image_delete');
+      imagesDeletebtn.forEach(function(imageDeletebtn){
+      let url=imageDeletebtn.getAttribute('href');
+      imageDeletebtn.addEventListener('click',(e)=>{
+          e.preventDefault();
+          const userConfirmed = confirm("Are you sure you want to delete this item?");
+          if (userConfirmed) {
+            window.location.href = url;
+          }
+     });
+  });
 
 
 //sweet alert
