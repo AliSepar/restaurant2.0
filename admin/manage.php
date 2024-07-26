@@ -185,7 +185,7 @@ try {
                   <h4 class='card-title'>Image insert</h4>
                 <form class="form-inline row" action="./includes/imagehandler.inc.php" method='POST' enctype="multipart/form-data">
                     <div class="form-group col-5">
-                      <input type="file" name='image_input' class="form-control" id="image_input">
+                      <input type="file" name='image_input' class="form-control" id="image_input" multiple>
                     </div>
                     <input type="submit" name='submit' class="col-2 btn btn-primary mb-2"  value='Submit'>
                   </form>
