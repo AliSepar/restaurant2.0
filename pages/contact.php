@@ -77,7 +77,7 @@ if(isset($_GET['reservation'])){
               <div class="navbar-nav ml-auto">
                 <a class="nav-link" href="../index.html">Home</a>
                 <a class="nav-link" href="menu.html">Menu</a>
-                <a class="nav-link" href="pictures.html">Pictures</a>
+                <a class="nav-link" href="pictures.php">Pictures</a>
                 <a class="nav-link" href="about.html">Restaurant</a>
                 <a class="nav-link active" href="contact.php">Contact</a>
               </div>

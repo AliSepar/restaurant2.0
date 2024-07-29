@@ -14,7 +14,7 @@ You have to add in the Project:
 ## Links:
 
 - Restaurant 1.0 static data [link](https://alisepar.github.io/restaurant-css-framework/index.html)
-- Restaurant 2.0 with dynamic data and able to handle data ( ! will be added shortly)
+- Restaurant 2.0 with dynamic data and able to handle data (! will be added shortly)
 
 ## Author
 
